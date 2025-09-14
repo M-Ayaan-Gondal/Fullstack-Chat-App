@@ -3,6 +3,7 @@ import User from "../models/User.js";
 import bcrypt from "bcryptjs";
 import { sendWelcomeEmail } from "../email/emailHandlers.js";
 import { ENV } from "../lib/env.js";
+import cloudinary from "../lib/cloudinary.js";
 
 const signUp = async (req, res) => {
   const { fullName, email, password } = req.body;
@@ -76,9 +77,9 @@ const signUp = async (req, res) => {
 
 const login = async (req, res) => {
   const { email, password } = req.body;
-  if(!email || !password){ 
+  if (!email || !password) {
     return res.status(400).json({ message: "email and password are required" });
-}
+  }
   try {
     const user = await User.findOne({ email });
     if (!user) return res.status(404).json({ message: "Invalid Credentials" });
@@ -92,7 +93,7 @@ const login = async (req, res) => {
       fullName: user.fullName,
       email: user.email,
       profilePic: user.profilePic,
-      message: "Login successfully" 
+      message: "Login successfully",
     });
     console.log("User Logged in Successfully");
   } catch (error) {
@@ -107,7 +108,26 @@ const logout = async (_, res) => {
   console.log("User Logged Out Successfully");
 };
 
-export { signUp, login, logout };
+const updateProfile = async (req, res) => {
+  try {
+    const { profilePic } = req.body;
+    if (!profilePic) {
+      return res.status(400).json({ message: "profilePic is required" });
+    }
+    const userId = req.user._id;
 
+    const uploadResponse = await cloudinary.uploader.upload(profilePic);
 
-// commit for git
+    const updatedUser = User.findByIdAndUpdate(
+      userId,
+      { profilePic: uploadResponse.secure_url },
+      { new: true } 
+    );
+    res.status(200).json(updatedUser);
+  } catch (error) {
+    console.log("Error in update user Profile : ", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+export { signUp, login, logout , updateProfile};
