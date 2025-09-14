@@ -22,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/M-Ayaan-Gondal/Fullstack-Chat-App/issues"
   },
-  "homepage": "https://github.com/M-Ayaan-Gondal/Fullstack-Chat-App#readme"
+  "homepage": "https://github.com/M-Ayaan-Gondal/Fullstack-Chat-App#readme",
+  "dependencies": {
+    "resend": "^6.0.3"
+  }
 }
