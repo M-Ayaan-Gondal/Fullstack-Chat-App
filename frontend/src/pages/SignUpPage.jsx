@@ -33,7 +33,6 @@ function SignUpPage() {
 
     try {
       await signup(formData);
-      navigate("/login");
     } catch (error) {
       toast.error(error.message || "Signup failed");
     }
