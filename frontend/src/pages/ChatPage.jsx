@@ -4,7 +4,7 @@ function ChatPage() {
   return (
     <>
       <div>
-        <h1>ChatPage</h1>
+        <h1 className="">ChatPage</h1>
       </div>
     </>
   );
