@@ -10,4 +10,6 @@ function ChatPage() {
   )
 }
 
-export default ChatPage
+export default ChatPage;
+
+// commit for git
