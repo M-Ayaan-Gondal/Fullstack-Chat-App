@@ -1,0 +1,356 @@
+import { useState } from "react";
+import {
+  MoreVertical,
+  Search,
+  Users,
+  Menu,
+  User,
+  LogOut,
+  Bot,
+  Group,
+  Pen,
+} from "lucide-react";
+
+function ChatPage() {
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const chats = [
+    { id: 1, name: "ayaan", lastMessage: "last Message...", time: "9:39pm" },
+    { id: 2, name: "arif", lastMessage: "last Message...", time: "9:39pm" },
+    { id: 3, name: "rayan", lastMessage: "last Message...", time: "9:39pm" },
+    { id: 4, name: "huzaifa", lastMessage: "last Message...", time: "9:39pm" },
+  ];
+
+  return (
+    <div className="h-screen w-full flex bg-gray-100">
+      {/* LEFT THIN SIDEBAR */}
+      <div className="w-14 bg-white border-r flex flex-col items-center py-4 space-y-6">
+        <button className="p-2 hover:bg-gray-100 rounded-full">
+          <Menu className="w-5 h-5" />
+        </button>
+        <button className="p-2 hover:bg-gray-100 rounded-full">
+          <User className="w-5 h-5" />
+        </button>
+        <button className="p-2 hover:bg-gray-100 rounded-full">
+          <Search className="w-5 h-5" />
+        </button>
+        <button className="p-2 hover:bg-gray-100 rounded-full">
+          <Bot className="w-5 h-5" />
+        </button>
+        <div className="flex-1" />
+        <button className="p-2 hover:bg-gray-100 rounded-full text-red-500">
+          <LogOut className="w-5 h-5" />
+        </button>
+      </div>
+
+      {/* LEFT CHAT SIDEBAR */}
+      <div className="w-72 border-r bg-white flex flex-col">
+        {/* Header */}
+        <div className="flex justify-between items-center px-4 py-3">
+          <h2 className="text-2xl font-semibold">Chats</h2>
+          <button className="p-2 rounded-full hover:bg-gray-200">
+            <img
+              src="https://cdn-icons-png.flaticon.com/512/60/60732.png"
+              className="w-5 h-5"
+            />
+          </button>
+        </div>
+
+        {/* Search */}
+        <div className="p-3 border-b">
+          <div className="flex items-center bg-gray-100 rounded-md px-2 py-1">
+            <Search className="w-4 h-4 text-gray-500" />
+            <input
+              type="text"
+              placeholder="Search"
+              className="ml-2 bg-transparent outline-none w-full text-sm"
+            />
+          </div>
+        </div>
+
+        {/* Chat List */}
+        <div className="flex-1 overflow-y-auto">
+          {chats.map((chat) => (
+            <div
+              key={chat.id}
+              className="flex items-center px-4 py-3 hover:bg-gray-50 cursor-pointer border-b"
+            >
+              <div className="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center">
+                <span className="text-sm font-bold uppercase">
+                  {chat.name[0]}
+                </span>
+              </div>
+              <div className="ml-3 flex-1">
+                <div className="flex justify-between">
+                  <h3 className="font-medium">{chat.name}</h3>
+                  <span className="text-xs text-gray-500">{chat.time}</span>
+                </div>
+                <p className="text-xs text-gray-500 truncate">
+                  {chat.lastMessage}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* CHAT WINDOW */}
+      <div className="flex-1 flex flex-col">
+        {/* Chat Header */}
+        <div className="flex justify-between items-center px-4 py-3 border-b bg-white">
+          <div className="flex items-center">
+            <div className="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center">
+              A
+            </div>
+            <div className="ml-3">
+              <h3 className="font-medium">ayaan</h3>
+              <span className="text-xs text-green-600">online</span>
+            </div>
+          </div>
+          <div className="relative">
+            <button
+              onClick={() => setMenuOpen(!menuOpen)}
+              className="p-2 rounded-full hover:bg-gray-200"
+            >
+              <MoreVertical className="w-5 h-5" />
+            </button>
+            {menuOpen && (
+              <div className="absolute right-0 mt-2 w-40 bg-white shadow-md rounded-md py-2 z-10">
+                <button className="block w-full text-left px-4 py-2 hover:bg-gray-100 text-sm">
+                  Block user
+                </button>
+                <button className="block w-full text-left px-4 py-2 hover:bg-gray-100 text-sm">
+                  Unlist user
+                </button>
+                <button className="block w-full text-left px-4 py-2 hover:bg-gray-100 text-sm">
+                  View Profile
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Chat Body */}
+        <div className="flex-1 bg-gray-50 p-4 overflow-y-auto">
+          {/* Messages will come here */}
+        </div>
+
+        {/* Chat Input */}
+        <div className="flex items-center p-3 border-t bg-white">
+          <button className="p-2 hover:bg-gray-100 rounded-full">⭕</button>
+          <button className="p-2 hover:bg-gray-100 rounded-full">🔗</button>
+          <input
+            type="text"
+            placeholder="Type a message"
+            className="flex-1 mx-2 p-2 rounded-md bg-gray-100 outline-none"
+          />
+          <button className="p-2 hover:bg-gray-100 rounded-full">➡️</button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default ChatPage;
+
+
+
+
+// resizebale left sidebar added:
+import { useState } from "react";
+import {
+  MoreVertical,
+  Search,
+  Users,
+  Menu,
+  User,
+  LogOut,
+  Bot,
+} from "lucide-react";
+import { useAuthStore } from "../store/useAuthStore";
+
+function ChatPage() {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [sidebarWidth, setSidebarWidth] = useState(280); // default width
+  const [resizing, setResizing] = useState(false);
+
+  const chats = [
+    { id: 1, name: "Ayaan", lastMessage: "last Message...", time: "9:39pm" },
+    { id: 2, name: "arif", lastMessage: "last Message...", time: "9:39pm" },
+    { id: 3, name: "rayan", lastMessage: "last Message...", time: "9:39pm" },
+    { id: 4, name: "huzaifa", lastMessage: "last Message...", time: "9:39pm" },
+  ];
+
+  // mouse down event
+  const startResizing = () => {
+    setResizing(true);
+    document.body.style.cursor = "col-resize";
+  };
+
+  // mouse move event
+  const handleResizing = (e) => {
+    if (resizing) {
+      const newWidth = e.clientX - 56; // 56 = thin sidebar width
+      if (newWidth > 200 && newWidth < 400) {
+        setSidebarWidth(newWidth);
+      }
+    }
+  };
+
+  // mouse up event
+  const stopResizing = () => {
+    setResizing(false);
+    document.body.style.cursor = "default";
+  };
+
+  // listeners for resize
+  if (typeof window !== "undefined") {
+    window.onmousemove = handleResizing;
+    window.onmouseup = stopResizing;
+  }
+
+  const { logout } = useAuthStore();
+
+  return (
+    <div className="h-screen w-full flex">
+      {/* LEFT THIN SIDEBAR */}
+      <div className="w-14 bg-white border-r flex flex-col items-center py-4 space-y-6">
+        <button className="p-2 hover:bg-gray-100 rounded-full">
+          <Menu className="w-5 h-5" />
+        </button>
+        <button className="p-2 hover:bg-gray-100 rounded-full">
+          <User className="w-5 h-5" />
+        </button>
+        <button className="p-2 hover:bg-gray-100 rounded-full">
+          <Search className="w-5 h-5" />
+        </button>
+        <button className="p-2 hover:bg-gray-100 rounded-full">
+          <Bot className="w-5 h-5" />
+        </button>
+        <div className="flex-1" />
+        <button
+          className="p-2 hover:bg-gray-100 rounded-full text-red-500 "
+          onClick={logout}
+        >
+          <LogOut className="w-5 h-5" />
+        </button>
+      </div>
+
+      {/* LEFT CHAT SIDEBAR */}
+      <div
+        style={{ width: `${sidebarWidth}px` }}
+        className="border-r bg-white flex flex-col relative"
+      >
+        {/* Header */}
+        <div className="flex justify-between items-center px-4 py-3">
+          <h2 className="text-2xl font-semibold">Chats</h2>
+          <button className="p-2 rounded-full hover:bg-gray-200">
+            <img
+              src="https://cdn-icons-png.flaticon.com/512/60/60732.png"
+              className="w-5 h-5"
+            />
+          </button>
+        </div>
+
+        {/* Search */}
+        <div className="p-3 border-b">
+          <div className="flex items-center bg-gray-100 rounded-md px-2 py-1">
+            <Search className="w-4 h-4 text-gray-500" />
+            <input
+              type="text"
+              placeholder="Search"
+              className="ml-2 bg-transparent outline-none w-full text-sm"
+            />
+          </div>
+        </div>
+
+        {/* Chat List */}
+        <div className="flex-1 overflow-y-auto">
+          {chats.map((chat) => (
+            <div
+              key={chat.id}
+              className="flex items-center px-4 py-3 hover:bg-gray-50 cursor-pointer border-b"
+            >
+              <div className="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center">
+                <span className="text-sm font-bold uppercase">
+                  {chat.name[0]}
+                </span>
+              </div>
+              <div className="ml-3 flex-1">
+                <div className="flex justify-between">
+                  <h3 className="font-medium">{chat.name}</h3>
+                  <span className="text-xs text-gray-500">{chat.time}</span>
+                </div>
+                <p className="text-xs text-gray-500 truncate">
+                  {chat.lastMessage}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Resizer */}
+        <div
+          onMouseDown={startResizing}
+          className="absolute right-0 top-0 h-full w-1 cursor-col-resize hover:bg-gray-300"
+        />
+      </div>
+
+      {/* CHAT WINDOW */}
+      <div className="flex-1 flex flex-col">
+        {/* Chat Header */}
+        <div className="flex justify-between items-center px-4 py-3 border-b bg-white">
+          <div className="flex items-center">
+            <div className="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center">
+              A
+            </div>
+            <div className="ml-3">
+              <h3 className="font-medium">Ayaan</h3>
+              <span className="text-xs text-green-600">online</span>
+            </div>
+          </div>
+          <div className="relative">
+            <button
+              onClick={() => setMenuOpen(!menuOpen)}
+              className="p-2 rounded-full hover:bg-gray-200"
+            >
+              <MoreVertical className="w-5 h-5" />
+            </button>
+            {menuOpen && (
+              <div className="absolute right-0 mt-2 w-40 bg-white shadow-md rounded-md py-2 z-10">
+                <button className="block w-full text-left px-4 py-2 hover:bg-gray-100 text-sm">
+                  Block user
+                </button>
+                <button className="block w-full text-left px-4 py-2 hover:bg-gray-100 text-sm">
+                  Unlist user
+                </button>
+                <button className="block w-full text-left px-4 py-2 hover:bg-gray-100 text-sm">
+                  View Profile
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Chat Body */}
+        <div className="flex-1 bg-gray-50 p-4 overflow-y-auto">
+          {/* Messages will come here */}
+        </div>
+
+        {/* Chat Input */}
+        <div className="flex items-center p-3 border-t bg-white">
+          <button className="p-2 hover:bg-gray-100 rounded-full">⭕</button>
+          <button className="p-2 hover:bg-gray-100 rounded-full">🔗</button>
+          <input
+            type="text"
+            placeholder="Type a message"
+            className="flex-1 mx-2 p-2 rounded-md bg-gray-100 outline-none"
+          />
+          <button className="p-2 hover:bg-gray-100 rounded-full">➡️</button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default ChatPage;

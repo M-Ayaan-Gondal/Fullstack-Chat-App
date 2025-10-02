@@ -44,7 +44,7 @@ function SignUpPage() {
     <>
       {/* MAIN CONTAINER */}
       <div className="h-screen w-full flex items-center justify-center bg-gradient-to-b z-1 from-[#c8dcfc] to-[#e7f0ff]">
-        {/* MAIN DIV OF SiGNUP FORM */}
+        {/* MAIN DIV OF SIGNUP FORM */}
         <div className="bg-white/80 shadow-md shadow-blue-100 rounded-2xl p-8 h-[600px] w-[450px]">
           {/* HEADING */}
           <h2 className="text-blue-800 text-center text-3xl font-semibold mb-[80px]">
@@ -113,7 +113,11 @@ function SignUpPage() {
                   : "bg-blue-200 text-gray-500 cursor-not-allowed"
               }`}
             >
-              {isSigningUp ? (<LoaderIcon className="w-full h-5 animate-spin text-center"/>) : ("Continue") }
+              {isSigningUp ? (
+                <LoaderIcon className="w-full h-5 animate-spin text-center" />
+              ) : (
+                "Continue"
+              )}
             </button>
           </form>
 
@@ -125,9 +129,9 @@ function SignUpPage() {
           </div>
 
           {/* CONTINUE WITH GOOGLE BUTTON */}
-
           <div>
             <button
+              onClick={() => toast("Google login will be added soon 🚀")}
               className="p-3 rounded-md font-medium transition 
                  bg-gray-100 hover:bg-gray-200 text-black w-full border border-gray-300 flex items-center justify-center"
             >
@@ -149,9 +153,8 @@ function SignUpPage() {
               </Link>
             </p>
           </div>
-          {/* MAIN DIV OF SiGNUP FORM END HERE */}
+          {/* MAIN DIV END */}
         </div>
-        {/* MAIN CONTAINER END HERE */}
       </div>
     </>
   );

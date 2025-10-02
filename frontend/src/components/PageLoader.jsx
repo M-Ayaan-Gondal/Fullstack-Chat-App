@@ -14,7 +14,6 @@ function FancyLoader() {
               transition={{
                 repeat: Infinity,
                 duration: 0.6,
-                delay: i * 0.2,
                 ease: "easeInOut",
               }}
             />

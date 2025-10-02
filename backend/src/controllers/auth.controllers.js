@@ -69,6 +69,7 @@ const signUp = async (req, res) => {
     } else {
       return res.status(500).json({ message: "Something went wrong" });
     }
+
   } catch (error) {
     console.log("Error in Signup controller : " + error);
     res.status(500).json({ message: "Internal server error" });

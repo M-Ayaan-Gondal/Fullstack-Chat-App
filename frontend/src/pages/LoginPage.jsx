@@ -128,7 +128,7 @@ function LoginPage() {
           <p className="text-gray-500 text-md text-center mt-4">
             Don’t have an account?{" "}
             <Link to="/signup" className="text-blue-700 underline">
-              Sign Up
+              SignUp
             </Link>
           </p>
           {/* SIGNUP FORM END HERE */}
